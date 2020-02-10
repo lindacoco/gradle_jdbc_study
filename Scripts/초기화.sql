@@ -1,7 +1,7 @@
--- 그래이들프로젝
+-- 그래이들프로젝트
 DROP SCHEMA IF EXISTS gradle_jdbc;
 
--- 그래이들프로젝
+-- 그래이들프로젝트
 CREATE SCHEMA gradle_jdbc;
 
 -- 직책
@@ -35,14 +35,15 @@ ALTER TABLE gradle_jdbc.department
 
 -- 사원
 CREATE TABLE gradle_jdbc.employee (
-	emp_no   INTEGER     NOT NULL COMMENT '사원번호', -- 사원번호
-	emp_name VARCHAR(20) NOT NULL COMMENT '사원명', -- 사원명
-	title    INTEGER     NULL     COMMENT '직책', -- 직책
-	manager  INTEGER     NULL     COMMENT '직속상사', -- 직속상사
-	salary   INTEGER     NULL     COMMENT '급여', -- 급여
-	dept     INTEGER     NOT NULL COMMENT '부서', -- 부서
-	pic      LONGBLOB    NULL     COMMENT '증명사진', -- 증명사진
-	pass     CHAR(41)    NULL     COMMENT '비밀번호' -- 비밀번호
+	emp_no    INTEGER     NOT NULL COMMENT '사원번호', -- 사원번호
+	emp_name  VARCHAR(20) NOT NULL COMMENT '사원명', -- 사원명
+	title     INTEGER     NULL     COMMENT '직책', -- 직책
+	manager   INTEGER     NULL     COMMENT '직속상사', -- 직속상사
+	salary    INTEGER     NULL     COMMENT '급여', -- 급여
+	dept      INTEGER     NOT NULL COMMENT '부서', -- 부서
+	pic       LONGBLOB    NULL     COMMENT '증명사진', -- 증명사진
+	passwd    CHAR(41)    NULL     COMMENT '비밀번호', -- 비밀번호
+	hire_date DATETIME    NOT NULL COMMENT '입사일' -- 입사일
 )
 COMMENT '사원';
 
