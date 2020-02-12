@@ -123,33 +123,31 @@ public class MainFrame extends JFrame implements ActionListener {
 	protected void btnEmployeeActionPerformed(ActionEvent e) {
 		
 		JFrame frame = new JFrame();
-		frame.setBounds(100, 100, 450, 400);
-		EmployeeUIPanel tp1 = new EmployeeUIPanel();
-		frame.add(tp1);
-		frame.setVisible(true);
+		frame.setBounds(100, 100, 900, 600);
+		
+		//frame.setVisible(true);
 		/*
 		JFrame frame = new JFrame();
 		frame.setBounds(100, 100, 450, 400);
-		
+		*/
 		EmployeeUIService service = new EmployeeUIService();
 		List<Department> list = service.showDeptList();
-		EmployeePanel tp = new EmployeePanel();
-		tp.setCmbDeptList(list);
-		tp.getCmbDept().addItemListener(new ItemListener() {
+		EmployeeUIPanel tp = new EmployeeUIPanel();
+		tp.getpEmployee().setCmbDeptList(list);
+		tp.getpEmployee().getCmbDept().addItemListener(new ItemListener() {
 			
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if(e.getStateChange() == ItemEvent.SELECTED) {
-					JOptionPane.showMessageDialog(null, e.getItem());
-					tp.setCmbManagerList(service.showManagerList((Department)e.getItem()));
+//					JOptionPane.showMessageDialog(null, e.getItem());
+					tp.getpEmployee().setCmbManagerList(service.showManagerList((Department)e.getItem()));
 				}
-				
 			}
 		});
-		tp.setCmbTitleList(service.showTitles());
+		tp.getpEmployee().setCmbTitleList(service.showTitles());
 //		tp.setService(service);
 		frame.add(tp);
 		frame.setVisible(true);
-		*/
+		
 	}
 }

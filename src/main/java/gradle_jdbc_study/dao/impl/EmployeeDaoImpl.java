@@ -156,6 +156,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	@Override
 	public Employee loginEmployee(Employee emp) {
 		String sql = "select emp_no, emp_name, title, manager, salary, dept, hire_date from employee where emp_no=? and passwd = password(?)";
+		
 		try(Connection con = MySqlDataSource.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setInt(1, emp.getEmpNo());
@@ -205,5 +206,52 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		dept.setDeptNo(rs.getInt("dept"));
 		dept.setDeptName(rs.getString("dept_name"));
 		return new Employee(empNo, empName, title, manager, salary, dept);
+	}
+
+	@Override
+	public List<Employee> selectEmployeeByA() {
+		String sql ="select e.emp_no, e.emp_name,t.title_no, t.title_name , m.emp_name, m.emp_no  , e.salary,d.dept_no, d.dept_name , e.hire_date \n" + 
+				"from employee e left join employee m on e.manager = m.emp_no join department d on e.dept =d.dept_no  join title t on e.title  = t.title_no";
+		
+		List<Employee> list =null;
+		try(Connection con = MySqlDataSource.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				ResultSet rs = pstmt.executeQuery()){
+			
+			   if(rs.next()) {
+				   list = new ArrayList<Employee>();
+				   do{
+					   list.add(getEmployee2(rs ,false));
+				   }while(rs.next());
+			   }
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return list;
+	}
+
+	private Employee getEmployee2(ResultSet rs , boolean isPic) throws SQLException {
+		int empNo = rs.getInt("e.emp_no");
+		String empName = rs.getString("e.emp_name");
+		Title title = new Title(rs.getInt("t.title_no"));
+		title.setTitleName(rs.getString("t.title_name"));
+		Employee manager = rs.getInt("m.emp_no")!=0?new Employee(rs.getInt("m.emp_no")):new Employee();
+		manager.setEmpName(rs.getString("m.emp_name")!=null?rs.getString("m.emp_name"):"직속상사 없음 ");
+		int salary = rs.getInt("e.salary");
+		Department dept = new Department(rs.getInt("d.dept_no"));
+		dept.setDeptName(rs.getString("d.dept_name"));
+		Date hireDate =rs.getTimestamp("e.hire_date");
+		Employee emp =  new Employee(empNo, empName, title, manager, salary, dept, hireDate);
+		if(isPic) {
+			byte[] pic = rs.getBytes("pic");
+			emp.setPic(pic);
+		}
+		
+		return emp;
 	}
 }

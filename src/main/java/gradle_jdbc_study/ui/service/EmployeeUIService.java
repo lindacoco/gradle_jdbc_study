@@ -53,6 +53,10 @@ public class EmployeeUIService {
 		empDao.insertEmployee(emp);
 		
 	}
+
+	public List<Employee> showEmployeeList2() {
+		return empDao.selectEmployeeByA();
+	}
 	
 	
 }

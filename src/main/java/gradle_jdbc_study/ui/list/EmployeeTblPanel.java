@@ -28,7 +28,8 @@ public class EmployeeTblPanel extends AbstractTblPanel<Employee> {
 		if (item.getManager().getEmpName()==null) {
 			manager = "";
 		}else {
-			manager = String.format("%s(%d)", item.getManager().getEmpName(), item.getManager().getEmpNo());
+			manager = String.format("%s%s", item.getManager().getEmpName(), item.getManager().getEmpNo()==0?"":"(" + item.getManager().getEmpNo() + ")" );
+			
 		}
 		return new Object[] {
 			item.getEmpNo(),

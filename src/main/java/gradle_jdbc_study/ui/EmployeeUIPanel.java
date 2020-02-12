@@ -28,10 +28,17 @@ public class EmployeeUIPanel extends JPanel implements ActionListener {
 	private EmployeeTblPanel pEmployeeList;
 	private EmployeePanel pEmployee; 
 
+	public EmployeePanel getpEmployee() {
+		return pEmployee;
+	}
+
 	private JButton btnAdd;
 	private JButton btnCancel;
 	
+
+	
 	public EmployeeUIPanel() {
+		
 		service = new EmployeeUIService();
 		initialize();
 	}
@@ -62,7 +69,7 @@ public class EmployeeUIPanel extends JPanel implements ActionListener {
 		pList.setLayout(new BorderLayout(0, 0));
 		
 		pEmployeeList = new EmployeeTblPanel();
-		pEmployeeList.loadData(service.showEmployeeList());
+		pEmployeeList.loadData(service.showEmployeeList2());
 		pEmployeeList.setPopupMenu(createPopupMenu());
 		pList.add(pEmployeeList, BorderLayout.CENTER);
 	}
@@ -145,4 +152,6 @@ public class EmployeeUIPanel extends JPanel implements ActionListener {
 			e1.printStackTrace();
 		}
 	}
+
+	
 }
