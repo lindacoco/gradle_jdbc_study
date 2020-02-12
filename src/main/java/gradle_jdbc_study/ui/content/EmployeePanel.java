@@ -10,6 +10,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,10 +20,12 @@ import gradle_jdbc_study.dto.Department;
 import gradle_jdbc_study.dto.Employee;
 import gradle_jdbc_study.dto.Title;
 import gradle_jdbc_study.ui.Listener.MyDocumentListener;
+import gradle_jdbc_study.ui.exception.InvalidCheckException;
 
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -36,9 +39,11 @@ import javax.swing.BoxLayout;
 import java.awt.Dimension;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class EmployeePanel extends AbsItemPanel<Employee> implements ItemListener  {
+public class EmployeePanel extends AbsItemPanel<Employee> implements ItemListener, ActionListener  {
 	private JTextField tfNo;
 	private JTextField tfName;
 	private JComboBox<Department> cmbDept;
@@ -49,6 +54,7 @@ public class EmployeePanel extends AbsItemPanel<Employee> implements ItemListene
 	private JLabel lblPasswdEqual;
 	private Dimension picDimension=new Dimension(100, 150);
 	private JLabel lblPic;
+	private JButton btnPic;
 
 	public EmployeePanel() {
 		setLayout(new BorderLayout(0, 0));
@@ -65,7 +71,8 @@ public class EmployeePanel extends AbsItemPanel<Employee> implements ItemListene
 		setPic(getClass().getClassLoader().getResource("no-image.png").getPath());
 		pWest.add(lblPic);
 		
-		JButton btnPic = new JButton("증명사진");
+		btnPic = new JButton("증명사진");
+		btnPic.addActionListener(this);
 		pWest.add(btnPic);
 		
 		JPanel pCenter = new JPanel();
@@ -235,10 +242,15 @@ public class EmployeePanel extends AbsItemPanel<Employee> implements ItemListene
 
 	@Override
 	public void validCheck() {
-		// TODO Auto-generated method stub
+		//입력한 값들이 있어야 하고 콤보박스 선택안되어있으면 -1 입사일은 체크할 필요없고 급여도, 비밀번호는 일치하는지만 체크 증명사진 없으면 없는 사진 들어가면 되고 있으면 있는사진들어가면됨
+		if(tfNo.getText().equals("")||tfName.getText().contentEquals("")||
+				cmbDept.getSelectedIndex() ==-1 || cmbManager.getSelectedIndex()== -1 ||
+				cmbTitle.getSelectedIndex() == -1 ||
+				!lblPasswdEqual.getText().equals("비밀번호일치")) {
+			throw new InvalidCheckException();
+		}
 		
 	}
-	
 	
 
 	public JComboBox<Department> getCmbDept() {
@@ -263,4 +275,23 @@ public class EmployeePanel extends AbsItemPanel<Employee> implements ItemListene
 	}
 	
 
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnPic) {
+			btnPicActionPerformed(e);
+		}
+	}
+	protected void btnPicActionPerformed(ActionEvent e) {
+		JFileChooser chooser = new JFileChooser(System.getProperty("user.dir"));
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG or PNG or GIF", "jpg","png","gif");
+		chooser.setFileFilter(filter);
+		
+		int res = chooser.showOpenDialog(null);
+	    if(res != JFileChooser.APPROVE_OPTION) {
+	    	JOptionPane.showMessageDialog(null, "파일을 선택하지 않았습니다","경고",JOptionPane.WARNING_MESSAGE);
+	    	return;
+	    }
+	    String picPath = chooser.getSelectedFile().getPath();
+	    setPic(picPath); //만든메소드
+		
+	}
 }

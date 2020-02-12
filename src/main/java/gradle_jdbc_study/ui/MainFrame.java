@@ -121,6 +121,13 @@ public class MainFrame extends JFrame implements ActionListener {
 		frame.setVisible(true);
 	}
 	protected void btnEmployeeActionPerformed(ActionEvent e) {
+		
+		JFrame frame = new JFrame();
+		frame.setBounds(100, 100, 450, 400);
+		EmployeeUIPanel tp = new EmployeeUIPanel();
+		frame.add(tp);
+		frame.setVisible(true);
+		/*
 		JFrame frame = new JFrame();
 		frame.setBounds(100, 100, 450, 400);
 		EmployeeUIService service = new EmployeeUIService();
@@ -143,5 +150,6 @@ public class MainFrame extends JFrame implements ActionListener {
 //		tp.setService(service);
 		frame.add(tp);
 		frame.setVisible(true);
+		*/
 	}
 }
