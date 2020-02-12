@@ -36,3 +36,9 @@ select emp_no,emp_name,manager,salary,dept,hire_date,title from employee where t
 select emp_no, emp_name , t.title_name 
 from employee e left join title t on e.title = t.title_no 
 where dept = 2; 
+
+select e.emp_no, e.emp_name, t.title_name , m.emp_name , e.salary, d.dept_name , e.hire_date 
+from employee e join employee m on e.manager = m.emp_no join department d on e.dept =d.dept_no  join title t on e.title  = t.title_no ;
+
+
+select emp_no, emp_name, title, manager, salary, dept,  hire_date from employee e ;

@@ -53,7 +53,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		Date hireDate = rs.getTimestamp("hire_date");// rs.getDate()로 작성시 시간표시가 00:00:00으로 세팅됨.
 		Employee emp = new Employee(empNo, empName, title, manager, salary, dept, hireDate);
 		if (isPic) {
-			byte[] pic = rs.getBytes("pic");
+			byte[] pic = rs.getBytes("pic"); 
 			emp.setPic(pic);
 		}
 		LogUtil.prnLog(emp);
@@ -62,7 +62,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 	@Override
 	public List<Employee> selectEmployeeByAll() {
-		String sql = "select emp_no, emp_name, title, manager, salary, dept, hire_date from employee";
+		String sql = "select emp_no, emp_name, title, manager, salary, dept,  hire_date from employee e";
 		List<Employee> list = null;
 		try (Connection con = MySqlDataSource.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);

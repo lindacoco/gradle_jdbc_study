@@ -124,12 +124,13 @@ public class MainFrame extends JFrame implements ActionListener {
 		
 		JFrame frame = new JFrame();
 		frame.setBounds(100, 100, 450, 400);
-		EmployeeUIPanel tp = new EmployeeUIPanel();
-		frame.add(tp);
+		EmployeeUIPanel tp1 = new EmployeeUIPanel();
+		frame.add(tp1);
 		frame.setVisible(true);
 		/*
 		JFrame frame = new JFrame();
 		frame.setBounds(100, 100, 450, 400);
+		
 		EmployeeUIService service = new EmployeeUIService();
 		List<Department> list = service.showDeptList();
 		EmployeePanel tp = new EmployeePanel();
@@ -141,7 +142,6 @@ public class MainFrame extends JFrame implements ActionListener {
 				if(e.getStateChange() == ItemEvent.SELECTED) {
 					JOptionPane.showMessageDialog(null, e.getItem());
 					tp.setCmbManagerList(service.showManagerList((Department)e.getItem()));
-					
 				}
 				
 			}
