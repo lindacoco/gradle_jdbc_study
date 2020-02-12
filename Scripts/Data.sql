@@ -17,7 +17,7 @@ desc employee ;
 
 select title_no, title_name from title where title_no=1
 
-insert into employee(emp_no, emp_name, title, manager, salary, dept, passwd, hire_date) values
+select emp_no, emp_name, title, manager, salary, dept, passwd, hire_date, pic from employee where emp_no=?
 (4377, '이성래',1,null,5000000,2, password('1234567'),'2000-03-01'),
 (3426, '박영권',3,4377,3000000,1, password('1234567'),'2000-07-01'),
 (1003, '조민희',3,4377,3000000,3, password('1234567'),'2005-03-01'),

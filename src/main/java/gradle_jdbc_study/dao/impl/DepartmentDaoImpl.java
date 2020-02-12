@@ -12,7 +12,6 @@ import gradle_jdbc_study.ds.MySqlDataSource;
 import gradle_jdbc_study.dto.Department;
 import gradle_jdbc_study.util.LogUtil;
 
-
 public class DepartmentDaoImpl implements DepartmentDao {
 	private static final DepartmentDaoImpl instance = new DepartmentDaoImpl();
 
